@@ -133,7 +133,7 @@ void SinclairACCNT::control(const climate::ClimateCall &call)
         ESP_LOGV(TAG, "Requested fan mode change");
         reqmodechange = true;
         this->update_ = ACUpdate::UpdateStart;
-        this->set_custom_fan_mode_() = *call.get_custom_fan_mode();
+        this->set_custom_fan_mode_((*call.get_custom_fan_mode()).c_str());
     }
 
     if (call.get_swing_mode().has_value())
@@ -696,7 +696,7 @@ bool SinclairACCNT::processUnitReport()
 
     std::string newFanMode = determine_fan_mode();
     if (this->get_custom_fan_mode() != newFanMode) hasChanged = true;
-    this->set_custom_fan_mode_(newFanMode);
+    this->set_custom_fan_mode_(newFanMode.c_str());
     
     //float newTargetTemperature = (float)(((this->serialProcess_.data[protocol::REPORT_TEMP_SET_BYTE] & protocol::REPORT_TEMP_SET_MASK) >> protocol::REPORT_TEMP_SET_POS)
      //   + protocol::REPORT_TEMP_SET_OFF);
