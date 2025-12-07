@@ -12,14 +12,20 @@ climate::ClimateTraits SinclairAC::traits()
 {
     auto traits = climate::ClimateTraits();
 
+    traits.add_feature_flags(
+        climate::CLIMATE_SUPPORTS_ACTION |
+        climate::CLIMATE_SUPPORTS_CURRENT_TEMPERATURE |
+        climate::CLIMATE_SUPPORTS_TWO_POINT_TARGET_TEMPERATURE
+     );
+
     //traits.set_supports_action(false);
-    traits.add_feature_flags(climate::CLIMATE_SUPPORTS_ACTION);
+    //traits.add_feature_flags(climate::CLIMATE_SUPPORTS_ACTION);
 
     //traits.set_supports_current_temperature(true);
-    traits.add_feature_flags(climate::CLIMATE_SUPPORTS_CURRENT_TEMPERATURE);
+    //traits.add_feature_flags(climate::CLIMATE_SUPPORTS_CURRENT_TEMPERATURE);
 
     //traits.set_supports_two_point_target_temperature(false);
-    traits.add_feature_flags(climate::CLIMATE_SUPPORTS_TWO_POINT_TARGET_TEMPERATURE);
+    //traits.add_feature_flags(climate::CLIMATE_SUPPORTS_TWO_POINT_TARGET_TEMPERATURE);
 
     traits.set_visual_min_temperature(MIN_TEMPERATURE);
     traits.set_visual_max_temperature(MAX_TEMPERATURE);
@@ -39,6 +45,7 @@ climate::ClimateTraits SinclairAC::traits()
     traits.add_supported_custom_fan_mode(fan_modes::FAN_TURBO);
     */
 
+    /*
     traits.set_supported_fan_modes({
         climate::CLIMATE_FAN_ON,
         climate::CLIMATE_FAN_OFF,
@@ -51,16 +58,9 @@ climate::ClimateTraits SinclairAC::traits()
         climate::CLIMATE_FAN_DIFFUSE,
         climate::CLIMATE_FAN_QUIET,
     });
-        
-        /*
-    traits.set_supported_custom_fan_modes({
-        fan_modes::FAN_AUTO,
-        fan_modes::FAN_LOW,
-        fan_modes::FAN_MED,
-        fan_modes::FAN_HIGH,
-        fan_modes::FAN_TURBO
-    });
     */
+        
+    traits.set_supported_custom_fan_modes({fan_modes::FAN_AUTO, fan_modes::FAN_LOW, fan_modes::FAN_MED, fan_modes::FAN_HIGH, fan_modes::FAN_TURBO});
 
     traits.set_supported_swing_modes({climate::CLIMATE_SWING_OFF, climate::CLIMATE_SWING_BOTH,
                                       climate::CLIMATE_SWING_VERTICAL, climate::CLIMATE_SWING_HORIZONTAL});
@@ -172,21 +172,20 @@ void SinclairAC::update_swing_horizontal(const std::string &swing)
 {
     this->horizontal_swing_state_ = swing;
 
-    if (this->horizontal_swing_select_ != nullptr &&
-        this->horizontal_swing_select_->current_option() != this->horizontal_swing_state_)
-    {
-        this->horizontal_swing_select_->publish_state(this->horizontal_swing_state_);
-    }
+  if (this->horizontal_swing_select_ != nullptr &&
+      this->horizontal_swing_state_.compare(this->horizontal_swing_select_->current_option())) {
+    this->horizontal_swing_select_->publish_state(
+        this->horizontal_swing_state_);  // Set current horizontal swing position
+  }
 }
 
 void SinclairAC::update_swing_vertical(const std::string &swing)
 {
     this->vertical_swing_state_ = swing;
 
-    if (this->vertical_swing_select_ != nullptr && 
-        this->vertical_swing_select_->current_option() != this->vertical_swing_state_)
-    {
-        this->vertical_swing_select_->publish_state(this->vertical_swing_state_);
+    if (this->vertical_swing_select_ != nullptr &&
+        this->vertical_swing_state_.compare(this->vertical_swing_select_->current_option())) {
+    this->vertical_swing_select_->publish_state(this->vertical_swing_state_);  // Set current vertical swing position
     }
 }
 
@@ -195,7 +194,8 @@ void SinclairAC::update_display(const std::string &display)
     this->display_state_ = display;
 
     if (this->display_select_ != nullptr && 
-        this->display_select_->current_option() != this->display_state_)
+        //this->display_select_->current_option() != this->display_state_)
+        this->display_state_.compare(this->display_select_->current_option()))
     {
         this->display_select_->publish_state(this->display_state_);
     }
@@ -206,7 +206,8 @@ void SinclairAC::update_display_unit(const std::string &display_unit)
     this->display_unit_state_ = display_unit;
 
     if (this->display_unit_select_ != nullptr && 
-        this->display_unit_select_->current_option() != this->display_unit_state_)
+        //this->display_unit_select_->current_option() != this->display_unit_state_)
+        this->display_unit_state_.compare(this->display_unit_select_->current_option()))
     {
         this->display_unit_select_->publish_state(this->display_unit_state_);
     }
