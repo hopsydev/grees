@@ -12,10 +12,15 @@ climate::ClimateTraits SinclairAC::traits()
 {
     auto traits = climate::ClimateTraits();
 
-    traits.set_supports_action(false);
+    //traits.set_supports_action(false);
+    traits.add_feature_flags(climate::CLIMATE_SUPPORTS_ACTION);
 
-    traits.set_supports_current_temperature(true);
+    //traits.set_supports_current_temperature(true);
+    traits.add_feature_flags(climate::CLIMATE_SUPPORTS_CURRENT_TEMPERATURE);
+
     traits.set_supports_two_point_target_temperature(false);
+    traits.add_feature_flags(climate::CLIMATE_SUPPORTS_TWO_POINT_TARGET_TEMPERATURE);
+
     traits.set_visual_min_temperature(MIN_TEMPERATURE);
     traits.set_visual_max_temperature(MAX_TEMPERATURE);
     traits.set_visual_temperature_step(TEMPERATURE_STEP);
@@ -33,7 +38,7 @@ climate::ClimateTraits SinclairAC::traits()
     traits.add_supported_custom_fan_mode(fan_modes::FAN_HIGH);
     traits.add_supported_custom_fan_mode(fan_modes::FAN_TURBO);
     */
-    traits.add_feature_flags(climate::CLIMATE_SUPPORTS_ACTION);
+
     traits.set_supported_fan_modes({
         climate::CLIMATE_FAN_ON,
         climate::CLIMATE_FAN_OFF,
