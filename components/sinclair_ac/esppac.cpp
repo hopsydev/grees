@@ -60,7 +60,29 @@ climate::ClimateTraits SinclairAC::traits()
     });
     */
         
-    traits.set_supported_custom_fan_modes({fan_modes::FAN_AUTO, fan_modes::FAN_LOW, fan_modes::FAN_MED, fan_modes::FAN_HIGH, fan_modes::FAN_TURBO});
+    //traits.set_supported_custom_fan_modes({fan_modes::FAN_AUTO, fan_modes::FAN_LOW, fan_modes::FAN_MED, fan_modes::FAN_HIGH, fan_modes::FAN_TURBO});
+
+    traits.set_supported_custom_fan_modes({
+        "0- Auto",
+        "1 - Low", 
+        "2 - Medium",
+        "3 - High",
+        "4 - Turbo"
+    });
+
+    /*
+    namespace fan_modes{
+    const std::string FAN_AUTO  = "0 - Auto";
+  //  const std::string FAN_QUIET = "1 - Quiet";
+    const std::string FAN_LOW   = "1 - Low";
+    //const std::string FAN_MEDL  = "3 - Medium-Low";
+    const std::string FAN_MED   = "2 - Medium";
+    //const std::string FAN_MEDH  = "5 - Medium-High";
+    const std::string FAN_HIGH  = "3 - High";
+    const std::string FAN_TURBO = "4 - Turbo";
+}
+
+    */
 
     traits.set_supported_swing_modes({climate::CLIMATE_SWING_OFF, climate::CLIMATE_SWING_BOTH,
                                       climate::CLIMATE_SWING_VERTICAL, climate::CLIMATE_SWING_HORIZONTAL});
