@@ -33,7 +33,7 @@ climate::ClimateTraits SinclairAC::traits()
     traits.add_supported_custom_fan_mode(fan_modes::FAN_HIGH);
     traits.add_supported_custom_fan_mode(fan_modes::FAN_TURBO);
     */
-    traits.set_supported_custom_fan_modes(std::vector<std::string>{
+    traits.set_supported_custom_fan_modes(const std::vector<std::__cxx11::basic_string<char>{
         fan_modes::FAN_AUTO,
         fan_modes::FAN_LOW,
         fan_modes::FAN_MED,
