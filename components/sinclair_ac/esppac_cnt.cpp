@@ -133,7 +133,7 @@ void SinclairACCNT::control(const climate::ClimateCall &call)
         ESP_LOGV(TAG, "Requested fan mode change");
         reqmodechange = true;
         this->update_ = ACUpdate::UpdateStart;
-        this->custom_fan_mode = *call.get_custom_fan_mode();
+        this->get_custom_fan_mode() = *call.get_custom_fan_mode();
     }
 
     if (call.get_swing_mode().has_value())
@@ -275,14 +275,14 @@ void SinclairACCNT::send_packet()
     bool    fanQuiet  = false;
     bool    fanTurbo  = false;
 
-    if (this->custom_fan_mode == fan_modes::FAN_AUTO)
+    if (this->get_custom_fan_mode() == fan_modes::FAN_AUTO)
     {
         fanSpeed1 = 0;
         fanSpeed2 = 0;
         fanQuiet  = false;
         fanTurbo  = false;
     }
-    else if (this->custom_fan_mode == fan_modes::FAN_LOW)
+    else if (this->get_custom_fan_mode() == fan_modes::FAN_LOW)
     {
         fanSpeed1 = 1;
         fanSpeed2 = 1;
@@ -297,7 +297,7 @@ void SinclairACCNT::send_packet()
         fanQuiet  = true;
         fanTurbo  = false;
     } */
-    else if (this->custom_fan_mode == fan_modes::FAN_MED)
+    else if (this->get_custom_fan_mode() == fan_modes::FAN_MED)
     {
         fanSpeed1 = 3;
         fanSpeed2 = 2;
@@ -305,7 +305,7 @@ void SinclairACCNT::send_packet()
         fanTurbo  = false;
         packet[protocol::REPORT_FAN_SPD2_BYTE] |= 2;
     }
-    else if (this->custom_fan_mode == fan_modes::FAN_HIGH)
+    else if (this->get_custom_fan_mode() == fan_modes::FAN_HIGH)
     {
         fanSpeed1 = 5;
         fanSpeed2 = 3;
@@ -313,7 +313,7 @@ void SinclairACCNT::send_packet()
         fanTurbo  = false;
         packet[protocol::REPORT_FAN_SPD2_BYTE] |= 3;
     }
-    else if (this->custom_fan_mode == fan_modes::FAN_TURBO)
+    else if (this->get_custom_fan_mode() == fan_modes::FAN_TURBO)
     {
         fanSpeed1 = 5;
         fanSpeed2 = 3;
@@ -695,7 +695,7 @@ bool SinclairACCNT::processUnitReport()
     this->mode = newMode;
 
     std::string newFanMode = determine_fan_mode();
-    if (this->custom_fan_mode != newFanMode) hasChanged = true;
+    if (this->get_custom_fan_mode() != newFanMode) hasChanged = true;
     this->custom_fan_mode = newFanMode;
     
     //float newTargetTemperature = (float)(((this->serialProcess_.data[protocol::REPORT_TEMP_SET_BYTE] & protocol::REPORT_TEMP_SET_MASK) >> protocol::REPORT_TEMP_SET_POS)
