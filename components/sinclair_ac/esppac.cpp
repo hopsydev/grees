@@ -53,7 +53,7 @@ climate::ClimateTraits SinclairAC::traits()
     });
         
         /*
-    traits.set_supported_custom_fan_modes(std::vector<std::string>{
+    traits.set_supported_custom_fan_modes({
         fan_modes::FAN_AUTO,
         fan_modes::FAN_LOW,
         fan_modes::FAN_MED,
