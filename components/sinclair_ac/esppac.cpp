@@ -18,7 +18,7 @@ climate::ClimateTraits SinclairAC::traits()
     //traits.set_supports_current_temperature(true);
     traits.add_feature_flags(climate::CLIMATE_SUPPORTS_CURRENT_TEMPERATURE);
 
-    traits.set_supports_two_point_target_temperature(false);
+    //traits.set_supports_two_point_target_temperature(false);
     traits.add_feature_flags(climate::CLIMATE_SUPPORTS_TWO_POINT_TARGET_TEMPERATURE);
 
     traits.set_visual_min_temperature(MIN_TEMPERATURE);
@@ -173,7 +173,7 @@ void SinclairAC::update_swing_horizontal(const std::string &swing)
     this->horizontal_swing_state_ = swing;
 
     if (this->horizontal_swing_select_ != nullptr &&
-        this->horizontal_swing_select_->state != this->horizontal_swing_state_)
+        this->horizontal_swing_select_->current_option() != this->horizontal_swing_state_)
     {
         this->horizontal_swing_select_->publish_state(this->horizontal_swing_state_);
     }
