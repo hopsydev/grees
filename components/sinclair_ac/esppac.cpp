@@ -60,8 +60,9 @@ climate::ClimateTraits SinclairAC::traits()
     });
     */
         
-    //traits.set_supported_custom_fan_modes({fan_modes::FAN_AUTO, fan_modes::FAN_LOW, fan_modes::FAN_MED, fan_modes::FAN_HIGH, fan_modes::FAN_TURBO});
+    traits.set_supported_custom_fan_modes({fan_modes::FAN_AUTO, fan_modes::FAN_LOW, fan_modes::FAN_MED, fan_modes::FAN_HIGH, fan_modes::FAN_TURBO});
 
+    /*
     traits.set_supported_custom_fan_modes({
         "0- Auto",
         "1 - Low", 
@@ -69,6 +70,7 @@ climate::ClimateTraits SinclairAC::traits()
         "3 - High",
         "4 - Turbo"
     });
+    */
 
     /*
     namespace fan_modes{
