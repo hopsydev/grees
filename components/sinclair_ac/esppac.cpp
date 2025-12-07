@@ -35,11 +35,8 @@ climate::ClimateTraits SinclairAC::traits()
     */
     traits.set_supported_custom_fan_modes({	
         fan_modes::FAN_AUTO,	
-        fan_modes::FAN_QUIET,	
-        fan_modes::FAN_LOW,	
-        fan_modes::FAN_MEDL,	
-        fan_modes::FAN_MED,	
-        fan_modes::FAN_MEDH,	
+        fan_modes::FAN_LOW,		
+        fan_modes::FAN_MED,		
         fan_modes::FAN_HIGH,	
         fan_modes::FAN_TURBO	
     });
